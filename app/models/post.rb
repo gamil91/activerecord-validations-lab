@@ -7,16 +7,21 @@ class Post < ActiveRecord::Base
 
 
     
-    def clickbait?
-        arr = [
-            /Won't Believe/i,
-            /Secret/i,
-            /Top [0-9]*/i,
-            /Guess/i
-          ]
+    # def clickbait?
+    #     arr = [
+    #         /Won't Believe/i,
+    #         /Secret/i,
+    #         /Top [0-9]*/i,
+    #         /Guess/i
+    #       ]
 
-        if arr.none? {|phrase| phrase.match title}
-        errors[:title] << "Must be clickbait"
+    #     if arr.none? {|phrase| phrase.match title}
+    #     errors[:title] << "Must be clickbait"
+    #     end
+    # end
+    def clickbait?
+        if title && !title.include?("Won't Believe" ||"Secret" || "Top[number]" || "Guess")
+            errors[:title] << "Must include a clickbait phrase"
         end
     end
 
